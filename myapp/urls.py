@@ -11,4 +11,5 @@ urlpatterns = [
     path('review/add/', views.ReviewCreateView.as_view(), name='add_review'),
     path('booking/add/', views.BookingCreateView.as_view(), name='add_booking'),
     path('all-rooms/', views.all_rooms, name='all_rooms'),
+    
 ]

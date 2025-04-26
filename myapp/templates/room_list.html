@@ -10,52 +10,90 @@
 
 <body class="bg-gradient-to-br from-blue-100 via-white to-blue-200 min-h-screen flex flex-col items-center justify-between font-sans space-y-6">
 
-    <!-- Header -->
-    <header class="text-white p-6 text-center w-full shadow-md">
-        <h1 class="text-3xl font-bold text-black">Available Rooms</h1>
-        <p class="text-black">Browse and find rooms ready for rent</p>
-    </header>
+<header class="p-4 w-full shadow-md relative bg-transparent">
+    <div class="flex items-center justify-between">
 
-    <!-- Navigation (Back to Home in Top Right Corner) -->
-    <nav class="absolute top-4 right-10">
-        <ul class="flex space-x-6">
-            <li><a href="{% url 'all_rooms' %}" class="text-black hover:text-blue-400 font-medium text-lg">All Rooms</a></li>
-            <li><a href="{% url 'home' %}" class="text-black hover:text-blue-400 font-medium text-lg">Home</a></li>
-        </ul>
-    </nav>
+        <!-- ปุ่มย้อนกลับ -->
+        <a href="{% url 'home' %}" class="flex items-center text-black hover:text-blue-400 font-medium text-lg">
+            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+        </a>
+
+    <h1 class="text-3xl font-bold text-black text-center flex-grow">ห้องว่าง</h1>
+
+        <div class="flex items-center space-x-4">
+            <a href="{% url 'all_rooms' %}" class="text-black hover:text-blue-400 font-medium text-lg">
+                ห้องว่างทั้งหมด
+            </a>
+
+            <!-- ปุ่มแฮมเบอร์เกอร์ -->
+            <div class="relative">
+                <button id="menu-toggle" class="text-black hover:text-blue-400 focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+
+                <!-- เมนูที่ซ่อนอยู่ -->
+                <div id="menu" class="hidden absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg py-4 z-50">
+                    <ul class="flex flex-col space-y-4 text-center">
+                        <li><a href="{% url 'home' %}" class="block text-black hover:text-blue-400 text-lg">หน้าหลัก</a></li>
+                        <li><a href="room_list.html"
+                                class="block text-black hover:text-blue-400 text-lg">สำหรับเจ้าของหอพัก</a></li>
+                        <li><a href="contact.html" class="block text-black hover:text-blue-400 text-lg">เข้าสู่ระบบ</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</header>
+<!-- สคริปต์เปิด/ปิดเมนู -->
+<script>
+    const toggleButton = document.getElementById('menu-toggle');
+    const menu = document.getElementById('menu');
+
+    toggleButton.addEventListener('click', function () {
+        menu.classList.toggle('hidden');
+    });
+</script>
+
+    
 
     <!-- Room Filter Section (Centered) -->
     <section class="container mx-auto p-6 flex flex-col items-center justify-center space-y-4">
         <form action="{% url 'room_list' %}" method="get" class="items-center space-y-4">
             <div class="flex flex-wrap gap-4 justify-center w-full">
                 <!-- Dorm Name -->
-                <input type="text" name="dorm_name" placeholder="Dorm Name"
+                <input type="text" name="dorm_name" placeholder="ชื่อหอพัก"
                        class="px-4 py-2 border border-gray-300 rounded-lg w-48 focus:outline-none focus:ring-2 focus:ring-blue-500"
                        value="{{ request.GET.dorm_name }}">
                 
                 <!-- Room Name -->
-                <input type="text" name="room_name" placeholder="Room Name"
+                <!-- <input type="text" name="room_name" placeholder="Room Name"
                        class="px-4 py-2 border border-gray-300 rounded-lg w-48 focus:outline-none focus:ring-2 focus:ring-blue-500"
                        value="{{ request.GET.room_name }}">
-                
+                 -->
                 <!-- Min Price -->
-                <input type="number" name="min_price" placeholder="Min Price"
+                <input type="number" name="min_price" placeholder="ราคาต่ำสุด"
                        class="px-4 py-2 border border-gray-300 rounded-lg w-36 focus:outline-none focus:ring-2 focus:ring-blue-500"
                        min="0" value="{{ request.GET.min_price }}">
                 
                 <!-- Max Price -->
-                <input type="number" name="max_price" placeholder="Max Price"
+                <input type="number" name="max_price" placeholder="ราคาสูงสุด"
                        class="px-4 py-2 border border-gray-300 rounded-lg w-36 focus:outline-none focus:ring-2 focus:ring-blue-500"
                        value="{{ request.GET.max_price }}">
                 
                 <!-- Search Button -->
                 <button type="submit" class="bg-black text-white font-medium py-3 px-6 rounded-xl shadow-md hover:shadow-lg transition duration-300">
-                    Search
+                    ค้นหา
                 </button>
-            </div>
-        </form>
-        
-    </section>
+
 
    <!-- Room List Section  -->
    <section class="container mx-auto p-6 w-full max-w-7xl">
@@ -83,7 +121,7 @@
     <!-- View All Button -->
     <div class="text-center mt-8">
         <a href="{% url 'all_rooms' %}" class="inline-block bg-black text-white px-6 py-2 rounded-full shadow-md hover:bg-blue-700 transition duration-300">
-            View All Rooms
+            ดูห้องว่างทั้งหมด
         </a>
     </div>
 </section>

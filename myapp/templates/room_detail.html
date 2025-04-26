@@ -8,27 +8,59 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body
-    class="bg-gradient-to-br from-blue-100 via-white to-blue-200 min-h-screen flex flex-col items-center justify-between font-sans space-y-6">
+<body class="bg-gradient-to-br from-blue-100 via-white to-blue-200 min-h-screen flex flex-col font-sans">
 
     <!-- Header -->
-    <header class="text-white p-6 text-center w-full shadow-md">
-        <h1 class="text-3xl font-bold text-black">Room Details</h1>
-        <p class="text-black">Information about the selected room</p>
+    <header class="w-full p-6 bg-white shadow-md flex justify-between items-center">
+        <!-- ปุ่มย้อนกลับ -->
+        <a href="{% url 'room_list' %}" class="flex items-center text-black hover:text-blue-400 font-medium text-lg">
+            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+        </a>
+
+
+        <!-- ชื่อหัวข้อกลาง -->
+        <h1 class="text-3xl font-bold text-black text-center flex-grow">รายละเอียดห้องพัก</h1>
+
+
+        <!-- ปุ่มแฮมเบอร์เกอร์ -->
+        <div class="relative">
+            <button id="menu-toggle" class="text-black hover:text-blue-400 focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        
+            <!-- เมนูที่ซ่อนอยู่ -->
+            <div id="menu" class="hidden absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg py-4 z-50">
+                <ul class="flex flex-col space-y-4 text-center">
+                    <li><a href="{% url 'home' %}" class="block text-black hover:text-blue-400 text-lg">หน้าหลัก</a></li>
+                    <li><a href="room_list.html" class="block text-black hover:text-blue-400 text-lg">สำหรับเจ้าของหอพัก</a></li>
+                    <li><a href="contact.html" class="block text-black hover:text-blue-400 text-lg">เข้าสู่ระบบ</a>
+                    </li>
+                </ul>
+            </div>
+  
     </header>
 
-    <!-- Navigation -->
-    <nav class="absolute top-4 right-10">
-        <ul class="flex space-x-6">
-            <li><a href="{% url 'home' %}" class="text-black hover:text-blue-400 font-medium text-lg">Home</a></li>
-        </ul>
-    </nav>
-    <nav class="absolute top-4 left-10">
-        <ul class="flex space-x-6">
-            <li><a href="{% url 'room_list' %}" class="text-black hover:text-blue-400 font-medium text-lg">Back to
-                    List</a></li>
-        </ul>
-    </nav>
+    <!-- สคริปต์เปิด/ปิดเมนู -->
+    <script>
+        const toggleButton = document.getElementById('menu-toggle');
+        const menu = document.getElementById('menu');
+
+        toggleButton.addEventListener('click', function () {
+            menu.classList.toggle('hidden');
+        });
+    </script>
+
+
+</body>
+
+
+
 
     <!-- Room Details Section -->
     <section class="container mx-auto p-6 w-full max-w-3xl flex-1">
@@ -78,7 +110,7 @@
             <!-- Booking Button -->
             <a href="{% if room.pk %}{% url 'booking_create' pk=room.pk %}{% else %}#{% endif %}"
                 class="inline-block bg-black text-white px-6 py-3 rounded-full shadow-md hover:bg-blue-600 transition duration-300 mt-4">
-                Book this Room
+                จองห้องพักนี้
             </a>
         </div>
     </section>
