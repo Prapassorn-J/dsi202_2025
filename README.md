@@ -2,3 +2,4 @@
 Django project for finding a room 
 
 hi '-'
+สวัสดี
